@@ -2,8 +2,10 @@ package comman
 
 import (
 	"io/ioutil"
+	"math/rand"
 	"regexp"
 	"strings"
+	"time"
 )
 
 // GetListByTxt 从文件获取为切片
@@ -42,7 +44,7 @@ func StrInAny(str string, list []string) bool {
 // DeleteExtraSpace 删除字符串中的多余空格，有多个空格时，仅保留一个空格
 func DeleteExtraSpace(s string) string {
 	s1 := strings.Replace(s, "\n", " ", -1)      //替换tab为空格
-	reg, _ := regexp.Compile(`\s{2,}`)             //两个及两个以上空格的正则表达式
+	reg, _ := regexp.Compile(`\s{2,}`)           //两个及两个以上空格的正则表达式
 	s2 := make([]byte, len(s1))                  //定义字符数组切片
 	copy(s2, s1)                                 //将字符串复制到切片
 	spc_index := reg.FindStringIndex(string(s2)) //在字符串中搜索
@@ -51,4 +53,12 @@ func DeleteExtraSpace(s string) string {
 		spc_index = reg.FindStringIndex(string(s2))            //继续在字符串中搜索
 	}
 	return string(s2)
+}
+
+// RandSecond 随机秒数
+func RandSecond(min, max int64) time.Duration {
+	if min >= max || min == 0 || max == 0 {
+		return time.Duration(max) * time.Second
+	}
+	return time.Duration(rand.Int63n(max-min)+min) * time.Second
 }

@@ -6,7 +6,7 @@ import (
 
 func main() {
 
-	html :=`
+	html := `
 <!doctype html>
 <html lang="zh-CN">
 
@@ -1842,7 +1842,6 @@ if(typeof crystal === 'undefined' && Math.random() <= 1) {
 </body>
 
 </html>`
-
 
 	tmp, _ := spider.HtmlMinify(html)
 	println(tmp)
